@@ -91,7 +91,7 @@ yearly_df = yearly_df[(yearly_df['year'] >= start_year) & (yearly_df['year'] <= 
 
 fig, ax = plt.subplots(figsize=(18, 12))
 
-ax.set_title('Average Air Pollution per Year on ' + selected_station + ' Station', 
+ax.set_title('Average Total Air Pollution per Year on ' + selected_station + ' Station', 
              fontsize = 20, 
              pad=20, 
              fontweight = 'bold')
@@ -126,7 +126,7 @@ color_palette = plt.cm.get_cmap('tab10', len(pol))
 
 fig, ax = plt.subplots(figsize=(18, 12))
 
-ax.set_title('Average Pollution per Year on ' + selected_station + ' Station', 
+ax.set_title('Average Air Pollution per Year on ' + selected_station + ' Station', 
              fontsize = 20, 
              pad=20, 
              fontweight = 'bold')
