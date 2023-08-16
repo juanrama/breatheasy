@@ -22,6 +22,8 @@ def clean_data(df):
     df = df[[col[10]] + col[0:8] + [col[9]] + [col[8]]]
     df = df.rename(columns = {'hour':'Hour', 'TEMP':'Temp'})
     
+    return df
+    
 
 def create_yearly_df(df):
     yearly_df = df.groupby(by = [df['Date'].dt.year, df['station']]).agg({
@@ -55,57 +57,5 @@ def mean_df(df):
    return all_mean_df
 
 all_df = clean_data(df)
-yearly_df = create_yearly_df(all_df)
-hourly_df = create_hourly_df(all_df)
-all_mean_df = mean_df(all_df)
 
-min_year = yearly_df["year"].min()
-max_year = yearly_df["year"].max()
-
-min_hour = hourly_df['Hour'].min()
-max_hour = hourly_df['Hour'].max()
-
-with st.sidebar:
-    st.image("beijing.jpg")
-    
-    selected_station = st.selectbox('Pilih Stasiun', all_df['station'].unique().tolist())
-    
-
-st.header('Beijing Station Air Quality ☁️')
-
-st.subheader('Yearly Air Quality')
-
-start_year, end_year = st.slider("Pilih Rentang Tahun", min_value=min_year, max_value=max_year, value=(min_year, max_year))
-
-yearly_pollution = []
-
-for i in list(yearly_df['station'].unique()):
-    yearly_pollution.append(i)
-    
-yearly_df = yearly_df[(yearly_df['year'] >= start_year) & (yearly_df['year'] <= end_year)]
-
-fig, ax = plt.subplots(figsize=(18, 12))
-
-ax.set_title('Average Total Air Pollution per Year on ' + selected_station + ' Station', 
-             fontsize = 20, 
-             pad=20, 
-             fontweight = 'bold')
-
-ax.plot(yearly_df.loc[yearly_df['station'] == selected_station]['year'], 
-        yearly_df.loc[yearly_df['station'] == selected_station]['Total Polutan'], 
-        color='blue',
-        marker = 's',
-        markersize = 20,
-        linewidth = 5,
-        markerfacecolor = 'blue',
-        markeredgecolor = 'red')
-
-ax.tick_params(axis='y', labelsize=20)
-ax.tick_params(axis='x', labelsize=20)
-
-ax.set_xlabel('Year',size=20, labelpad = 20)
-ax.set_ylabel('Total Polutan',size=20, labelpad = 20)
-
-ax.set_xticks(list(yearly_df['year'].unique()))
- 
-st.pyplot(fig)
+st.table(all_df.head())
