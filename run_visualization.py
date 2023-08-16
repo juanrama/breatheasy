@@ -11,7 +11,7 @@ df = pd.DataFrame()
 
 for file in os.listdir(os.getcwd()):
     if file.endswith('.csv'):
-        pd.concat([df, pd.read_csv(file)])
+        df = df.append(pd.read_csv(file))
 
 def clean_data(df):
     df['Total Polutan'] = df['PM2.5'] + df['PM10'] + df['SO2'] + df['NO2'] + df['CO'] + df['O3']
@@ -80,7 +80,7 @@ st.header('Beijing Station Air Quality ☁️')
 
 st.subheader('Yearly Air Quality')
 
-start_year, end_year = st.slider("Pilih Rentang Tahun", min_value=min_year, max_value=max_year, value=(min_year, max_year))
+start_year, end_year = st.slider("Pilih Rentang Tahun", min_value=int(min_year), max_value=int(max_year), value=(int(min_year),int(max_year)))
 
 yearly_pollution = []
 
@@ -159,7 +159,7 @@ st.pyplot(fig)
 
 st.subheader('Hourly Air Quality')
 
-start_hour,end_hour = st.slider('Pilih Rentang Jam', min_value=min_hour, max_value=max_hour, value=(min_hour, max_hour))
+start_hour,end_hour = st.slider('Pilih Rentang Jam', min_value=int(min_hour), max_value=int(max_hour), value=(int(min_hour), int(max_hour)))
 
 hourly_df = hourly_df[(hourly_df['Hour'] >= start_hour) & (hourly_df['Hour'] <= end_hour)]
 
