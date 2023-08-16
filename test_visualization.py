@@ -77,7 +77,7 @@ st.header('Beijing Station Air Quality ☁️')
 
 st.subheader('Yearly Air Quality')
 
-start_year, end_year = st.slider("Pilih Rentang Tahun", min_value=min_year, max_value=max_year, value=(min_year, max_year))
+start_year, end_year = st.slider("Pilih Rentang Tahun", min_value=int(min_year), max_value=int(max_year), value=(int(min_year), int(max_year)))
 
 yearly_pollution = []
 
