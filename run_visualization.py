@@ -11,7 +11,7 @@ df = pd.DataFrame()
 
 for file in os.listdir(os.getcwd()):
     if file.endswith('.csv'):
-        df = df.append(pd.read_csv(file))
+        pd.concat([df, pd.read_csv(file)])
 
 def clean_data(df):
     df['Total Polutan'] = df['PM2.5'] + df['PM10'] + df['SO2'] + df['NO2'] + df['CO'] + df['O3']
@@ -126,7 +126,7 @@ color_palette = plt.cm.get_cmap('tab10', len(pol))
 
 fig, ax = plt.subplots(figsize=(18, 12))
 
-ax.set_title('Average Air Pollution per Year on ' + selected_station + ' Station', 
+ax.set_title('Average Total Pollution per Year on ' + selected_station + ' Station', 
              fontsize = 20, 
              pad=20, 
              fontweight = 'bold')
